@@ -1,0 +1,137 @@
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>obby but you're in space player count and html</title>
+  <style>
+    #container {
+      position: relative;
+      width: 576px; /* 0.75 of 768px */
+      height: 324px; /* 0.75 of 432px */
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin: auto;
+    }
+
+    #background-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* filter: blur(3px); */ /* Remove this line to remove the blur */
+    }
+
+    #player-count-box {
+      width: 576px; /* 0.75 of 768px */
+      height: 100px; /* Increased height */
+      background-color: white;
+      text-align: left;
+      padding: 10px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 20px;
+      box-sizing: border-box;
+      position: relative;
+      top: -20px; /* Move the bar up slightly */
+      margin: auto;
+    }
+
+    #game-title {
+      font-size: 20px; /* Increased font size */
+      margin-bottom: 5px;
+      color: black;
+    }
+
+    #player-count {
+      display: flex;
+      align-items: center;
+      color: black;
+      font-size: 18px; /* Increased font size */
+    }
+
+    #green-circle {
+      width: 15px;
+      height: 15px;
+      background-color: green;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    #play-button {
+      margin-right: 20px;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #play-button:hover {
+      background-color: #333;
+    }
+  </style>
+
+
+  <div id="container">
+    <img id="background-image" src="https://tr.rbxcdn.com/180DAY-3b1568df21541feb9e2bc34729c82e8f/768/432/Image/Webp/noFilter" alt="Background Image" loading="lazy">
+  </div>
+  <div id="player-count-box">
+    <div>
+      <div id="game-title">🚀Obby But You're In Space!</div>
+      <div id="player-count">
+        <div id="green-circle"></div>
+        <div id="player-count-text">Fetching...</div>
+      </div>
+    </div>
+    <a id="play-button" href="https://www.roblox.com/games/111249636994751/" target="_self">Play</a>
+  </div>
+
+  <script>
+    async function fetchPlayerCount() {
+      const placeId = '111249636994751';
+      const proxyUrl = `https://apis.roproxy.com/universes/v1/places/${placeId}/universe`;
+
+      let loadingTimeout = setTimeout(() => {
+        document.getElementById('player-count-text').innerText = 'WiFi Error';
+      }, 6000);
+
+      try {
+        const response = await fetch(proxyUrl);
+        if (response.ok) {
+          const data = await response.json();
+          const universeId = data.universeId;
+
+          if (universeId) {
+            const playerCountUrl = `https://games.roproxy.com/v1/games?universeIds=${universeId}`;
+            const playerCountResponse = await fetch(playerCountUrl);
+            if (playerCountResponse.ok) {
+              const playerCountData = await playerCountResponse.json();
+              let playerCount = 0;
+              if (playerCountData.data.length > 0) {
+                playerCount = playerCountData.data[0].playing || 0;
+              }
+              clearTimeout(loadingTimeout);
+              const playerCountText = playerCount === 1 ? '1 Player Online' : `${playerCount} Players Online`;
+              document.getElementById('player-count-text').innerText = playerCountText;
+              return;
+            }
+          }
+        }
+      } catch (error) {}
+
+      clearTimeout(loadingTimeout);
+      document.getElementById('player-count-text').innerText = 'Connection Error';
+    }
+
+    window.onload = () => {
+      fetchPlayerCount();
+      setInterval(fetchPlayerCount, 5000);
+    };
+  </script>
