@@ -113,7 +113,7 @@
           const universeId = data.universeId;
 
           if (universeId) {
-            const playerCountUrl = `https://roblox-api-proxy-studstudio.vercel.app/v1/games?universeIds=${universeId}`;
+            const playerCountUrl = `https://games.roblox.com/v1/games?universeIds=${universeId}`;
             const playerCountResponse = await fetch(playerCountUrl);
             if (playerCountResponse.ok) {
               const playerCountData = await playerCountResponse.json();
