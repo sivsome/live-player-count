@@ -1,10 +1,13 @@
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <title>obby but you're in space player count and html</title>
+  <title>Obby But You're In Space Player Count and HTML</title>
   <style>
-
-    {
+    /* Apply font globally as a fallback */
+    * {
       font-family: 'Press Start 2P', cursive, sans-serif;
     }
 
@@ -23,7 +26,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* filter: blur(3px); */ /* Remove this line to remove the blur */
     }
 
     #player-count-box {
@@ -45,14 +47,12 @@
     }
 
     #game-title {
-      font-family: 'Press Start 2P', cursive;
       font-size: 14px; 
       margin-bottom: 5px;
       color: black;
     }
 
     #player-count {
-      font-family: 'Press Start 2P', cursive;
       display: flex;
       align-items: center;
       color: black;
@@ -68,7 +68,6 @@
     }
 
     #play-button {
-      font-family: 'Press Start 2P', cursive;
       margin-right: 20px;
       padding: 10px 20px;
       background-color: black;
@@ -86,8 +85,8 @@
       background-color: #333;
     }
   </style>
-
-
+</head>
+<body>
   <div id="container">
     <img id="background-image" src="https://tr.rbxcdn.com/180DAY-3b1568df21541feb9e2bc34729c82e8f/768/432/Image/Webp/noFilter" alt="Background Image" loading="lazy">
   </div>
@@ -118,7 +117,7 @@
           const universeId = data.universeId;
 
           if (universeId) {
-            const playerCountUrl = `https://games.roblox.com/v1/games?universeIds=${universeId}`;
+            const playerCountUrl = `https://gamesrobloxcom-proxy.vercel.app/v1/games?universeIds=${universeId}`;
             const playerCountResponse = await fetch(playerCountUrl);
             if (playerCountResponse.ok) {
               const playerCountData = await playerCountResponse.json();
@@ -144,3 +143,5 @@
       setInterval(fetchPlayerCount, 5000);
     };
   </script>
+</body>
+</html>
