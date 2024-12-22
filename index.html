@@ -100,7 +100,7 @@
   <script>
     async function fetchPlayerCount() {
       const placeId = '111249636994751';
-      const proxyUrl = `https://apis.roblox.com/universes/v1/places/${placeId}/universe`;
+      const proxyUrl = `https://roblox-api-proxy-studstudio.vercel.app/universes/v1/places/${placeId}/universe`;
 
       let loadingTimeout = setTimeout(() => {
         document.getElementById('player-count-text').innerText = 'WiFi Error';
@@ -113,7 +113,7 @@
           const universeId = data.universeId;
 
           if (universeId) {
-            const playerCountUrl = `https://games.roblox.com/v1/games?universeIds=${universeId}`;
+            const playerCountUrl = `https://roblox-api-proxy-studstudio.vercel.app/v1/games?universeIds=${universeId}`;
             const playerCountResponse = await fetch(playerCountUrl);
             if (playerCountResponse.ok) {
               const playerCountData = await playerCountResponse.json();
