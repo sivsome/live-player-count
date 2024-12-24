@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <title>Obby But You're In Space Player Count and HTML</title>
+  <title>obyis live player count</title>
   <style>
     /* Apply font globally as a fallback */
     * {
@@ -107,7 +107,7 @@
       const proxyUrl = `https://roblox-api-proxy-studstudio.vercel.app/universes/v1/places/${placeId}/universe`;
 
       let loadingTimeout = setTimeout(() => {
-        document.getElementById('player-count-text').innerText = 'WiFi Error';
+        document.getElementById('player-count-text').innerText = 'Connection Errorr';
       }, 6000);
 
       try {
@@ -141,6 +141,13 @@
     window.onload = () => {
       fetchPlayerCount();
       setInterval(fetchPlayerCount, 15000);
+
+      // Check if the site is in an iframe
+      if (window.self !== window.top) {
+        const playButton = document.getElementById('play-button');
+        // Force link to open in a new tab if inside an iframe
+        playButton.setAttribute('target', '_blank');
+      }
     };
   </script>
 </body>
