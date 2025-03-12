@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,15 +5,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <title>obyis live player count</title>
   <style>
-    /* Apply font globally as a fallback */
     * {
       font-family: 'Press Start 2P', cursive, sans-serif;
     }
 
     #container {
       position: relative;
-      width: 576px; /* 0.75 of 768px */
-      height: 324px; /* 0.75 of 432px */
+      width: 576px;
+      height: 324px; /*75% of initial values*/
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
       overflow: hidden;
@@ -29,8 +27,8 @@
     }
 
     #player-count-box {
-      width: 576px; /* 0.75 of 768px */
-      height: 100px; /* Increased height */
+      width: 576px;
+      height: 100px;
       background-color: white;
       text-align: left;
       padding: 10px;
@@ -42,7 +40,7 @@
       padding-left: 20px;
       box-sizing: border-box;
       position: relative;
-      top: -20px; /* Move the bar up slightly */
+      top: -20px;
       margin: auto;
     }
 
@@ -92,7 +90,7 @@
   </div>
   <div id="player-count-box">
     <div>
-      <div id="game-title">🚀Obby But You're In Space!</div>
+      <div id="game-title">🚀Obby But You're In Space</div>
       <div id="player-count">
         <div id="green-circle"></div>
         <div id="player-count-text">Fetching...</div>
@@ -104,7 +102,7 @@
   <script>
     async function fetchPlayerCount() {
       const placeId = '136321672876017';
-      const proxyUrl = `https://roblox-api-proxy-studstudio.vercel.app/universes/v1/places/${placeId}/universe`;
+      const proxyUrl = `https://roblox-api-proxy-studstudio.vercel.app/universes/v1/places/${placeId}/universe`; /*cors 😭*/
 
       let loadingTimeout = setTimeout(() => {
         document.getElementById('player-count-text').innerText = 'Connection Errorr';
@@ -142,10 +140,8 @@
       fetchPlayerCount();
       setInterval(fetchPlayerCount, 15000);
 
-      // Check if the site is in an iframe
       if (window.self !== window.top) {
         const playButton = document.getElementById('play-button');
-        // Force link to open in a new tab if inside an iframe
         playButton.setAttribute('target', '_blank');
       }
     };
